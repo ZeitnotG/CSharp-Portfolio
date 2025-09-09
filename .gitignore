@@ -1,0 +1,44 @@
+# Build Folders
+bin/
+obj/
+Debug/
+Release/
+
+# Visual Studio temporary files
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Rider IDE
+.idea/
+
+# Visual Studio Code
+.vscode/
+
+# Logs
+*.log
+
+# NuGet packages
+*.nupkg
+packages/
+
+# Publish outputs
+*.Publish.xml
+publish/
+
+# Test results
+TestResults/
+*.trx
+
+# Resharper
+_ReSharper*/
+*.DotSettings.user
+
+# Others
+*.cache
+*.bak
+*.tmp
+*.swp
+*.DS_Store
