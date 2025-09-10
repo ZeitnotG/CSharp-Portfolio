@@ -60,11 +60,13 @@ namespace OnlineStore
         public List<Product> Products { get; private set; }
         public OrderStatus Status { get; private set; }
         public DateTime CreatedAt { get; }
+        public DateTime UpdatedAt { get; private set; }
         public Order()
         {
             Products = new List<Product>();
             Status = OrderStatus.New;
             CreatedAt = DateTime.Now;
+            UpdatedAt = CreatedAt;
         }
         public void AddProduct(Product product)
         {
@@ -83,6 +85,8 @@ namespace OnlineStore
         public void ChangeStatus(OrderStatus status)
         {
             Status = status;
+            UpdatedAt = DateTime.Now;
+            Console.WriteLine($"Your order status has been changed in {UpdatedAt}");
         }
 
         public void RemoveProduct(Product product)
@@ -112,7 +116,10 @@ namespace OnlineStore
             int number = 1;
             foreach (Order order in Orders)
             {
-                Console.WriteLine($"The order number {number}  has total amount {order.CalculateAmount()} $. Status: {order.Status}. Order creation time: {order.CreatedAt} Details: ");
+                Console.WriteLine($"The order number {number}  has total amount {order.CalculateAmount()}" +$"" +
+                    $" $. Status: {order.Status}. Order creation time: {order.CreatedAt}." +
+                    $" Last updated: {order.UpdatedAt}." +
+                    $" Details: ");
                 number++;
                 foreach (Product product in order.Products)
                 {
