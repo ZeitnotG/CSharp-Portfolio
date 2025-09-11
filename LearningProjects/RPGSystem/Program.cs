@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 
 namespace RPGSystem
 {
@@ -10,7 +11,7 @@ namespace RPGSystem
             Item knife = new Item("Knife", 3, 10, ItemType.Weapon);
             Item dumbbell = new Item("Dumbbell", 20, 0, ItemType.Other);
 
-            Player player = new Player("Ivan", 30, 50, 7, 3);
+            Player player = new Player("Ivan", 30, 50, 10, 3);
             Player player1 = new Player("Lisa", 20, 40, 5, 6);
 
 
@@ -20,6 +21,21 @@ namespace RPGSystem
             player1.AddItemToInventory(knife);
             player1.AddItemToInventory(dumbbell);
             player1.Inventory.ShowItems();
+            Battle(player1, player);
+        }
+        public static void Battle(Player p1, Player p2)
+        {
+            Console.WriteLine($"Battle {p1.Name} vs {p2.Name} started!");
+            int r = 1;
+            while (p1.IsAlive == true && p2.IsAlive == true)
+            {
+                Console.WriteLine($"Round {r}:" );
+                p1.Attack(p2);
+                if(p2.IsAlive == true)
+                p2.Attack(p1);
+                r++;
+            }
+
         }
     }
 
@@ -132,17 +148,14 @@ namespace RPGSystem
             {
                 Health -= amount - Defense;
                 Health = Math.Max(0, Health);
-                Console.WriteLine($"{Name} was injured to {amount - Defense} health point");
-                if(Health == 0)
-                {
-                    Console.WriteLine($"{Name} is dead");
-                    IsAlive = false;
-                }
+                Console.WriteLine($"{Name} was injured to {amount - Defense} health point. Current health: {Health}/{MaxHealth}");
+                CheckDeath();
             }
             else
             {
-                Console.WriteLine($"{Name} was injured to 1 health point");
-                Health--;
+                Health = Math.Max(0, Health - 1);
+                Console.WriteLine($"{Name} was injured to 1 health point. Current health: {Health}/{MaxHealth}");
+                CheckDeath();
             }
         }
 
@@ -156,12 +169,12 @@ namespace RPGSystem
             if (Health + amount <= MaxHealth)
             {
                 Health += amount;
-                Console.WriteLine($"{amount} health points restored. Health: {Health}");
+                Console.WriteLine($"{amount} health points restored. Health: {Health}/{MaxHealth}");
             }
             else
             {
                 Health = MaxHealth;
-                Console.WriteLine($"Your health is fully restored. Health: {Health}");
+                Console.WriteLine($"Your health is fully restored. Health: {Health}/{MaxHealth}");
             }
         }
 
@@ -184,6 +197,15 @@ namespace RPGSystem
             AttackPower += 2;
             Defense += 2;
             Health = MaxHealth;
+        }
+
+        public void CheckDeath()
+        {
+            if (Health == 0)
+            {
+                Console.WriteLine($"{Name} is dead");
+                IsAlive = false;
+            }
         }
     }
     public interface ICarryingEntity
