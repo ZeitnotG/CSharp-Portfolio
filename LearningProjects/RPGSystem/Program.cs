@@ -10,8 +10,8 @@ namespace RPGSystem
             Item knife = new Item("Knife", 3, 10, ItemType.Weapon);
             Item dumbbell = new Item("Dumbbell", 20, 0, ItemType.Other);
 
-            Player player = new Player("Ivan", 1, 30);
-            Player player1 = new Player("Lisa", 1, 20);
+            Player player = new Player("Ivan", 30, 50, 7, 3);
+            Player player1 = new Player("Lisa", 20, 40, 5, 6);
 
 
             player.AddItemToInventory(knife);
@@ -94,30 +94,110 @@ namespace RPGSystem
         }
     }
 
-    public class Player : ICarryingEntity
+    public class Player : ICarryingEntity, IDamageable
     {
         public string Name { get; private set; }
+        public int Health {  get; private set; }
+        public int MaxHealth {  get; private set; }
+        public int AttackPower {  get; private set; }
+        public int Defense {  get; private set; }
+        public int Experience {  get; private set; }
         public int Level { get; private set; }
         public double MaxWeight { get; private set; }
         public Inventory Inventory { get; private set; }
+        public bool IsAlive { get; private set;}
 
-        public Player(string name, int level, double maxWeight)
+        public Player(string name, double maxWeight, int maxHealth, int attackPower, int defense)
         {
             Name = name;
-            Level = level;
+            MaxHealth = maxHealth;
+            Health = MaxHealth;
+            AttackPower = attackPower;
+            Defense = defense;
+            Experience = 0;
+            Level = 1;
             MaxWeight = maxWeight;
             Inventory = new Inventory(this);
+            IsAlive = true;
         }
 
         public void AddItemToInventory(Item item)
         {
             Inventory.AddItem(item);
         }
+
+        public void TakeDamage(int amount)
+        {
+            if (amount > Defense)
+            {
+                Health -= amount - Defense;
+                Health = Math.Max(0, Health);
+                Console.WriteLine($"{Name} was injured to {amount - Defense} health point");
+                if(Health == 0)
+                {
+                    Console.WriteLine($"{Name} is dead");
+                    IsAlive = false;
+                }
+            }
+            else
+            {
+                Console.WriteLine($"{Name} was injured to 1 health point");
+                Health--;
+            }
+        }
+
+        public void Attack(IDamageable target)
+        {
+            target.TakeDamage(AttackPower);
+        }
+
+        public void Heal(int amount)
+        {
+            if (Health + amount <= MaxHealth)
+            {
+                Health += amount;
+                Console.WriteLine($"{amount} health points restored. Health: {Health}");
+            }
+            else
+            {
+                Health = MaxHealth;
+                Console.WriteLine($"Your health is fully restored. Health: {Health}");
+            }
+        }
+
+        public void GainExperience(int xp)
+        {
+            Experience += xp;
+            while(Experience >= 100 * Level)
+            {
+                Console.WriteLine($"{Name} has leveled up. " +
+                    $"Max health, attack power and defense have been increased, your health is fully restored");
+                LevelUp();
+                Experience -= 100 * Level;
+            }
+        }
+
+        public void LevelUp()
+        {
+            Level++;
+            MaxHealth += 10;
+            AttackPower += 2;
+            Defense += 2;
+            Health = MaxHealth;
+        }
     }
     public interface ICarryingEntity
     {
         string Name { get; }
         double MaxWeight { get; }
+    }
+    public interface IDamageable
+    {
+        string Name { get; }
+        int Health {  get; }
+        int Defense {  get; }
+        void TakeDamage(int amount);
+        bool IsAlive {  get; }
     }
 }
 
