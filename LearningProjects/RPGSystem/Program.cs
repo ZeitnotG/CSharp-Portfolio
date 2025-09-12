@@ -9,20 +9,28 @@ namespace RPGSystem
         static void Main(string[] args)
         {
             Item knife = new Item("Knife", ItemType.Weapon, 3, attackBonus:10);
-            Item dumbbell = new Item("Dumbbell", ItemType.Other, 20);
+            Item armor = new Item("Armor", ItemType.Equipment, 10, defenseBonus:5);
+            Item potion = new Item("Health potion", ItemType.Potion, 1, healAmount: 20);
 
             Player player = new Player("Ivan", 30, 50, 10, 3);
             Player player1 = new Player("Lisa", 20, 40, 5, 6);
 
-
             player.AddItemToInventory(knife);
+            player1.AddItemToInventory(knife);
+            player1.AddItemToInventory(armor);
+
+            player.EquipItem(armor);
+            player1.EquipItem(knife);
+
+            player1.Inventory.ShowItems();
             player.Inventory.ShowItems();
 
-            player1.AddItemToInventory(knife);
-            player1.AddItemToInventory(dumbbell);
-            player1.Inventory.ShowItems();
-            Battle(player1, player);
             Console.WriteLine(player);
+            Console.WriteLine(player1);
+
+            Battle(player1, player);
+
+            player.EquipItem(potion);
         }
         public static void Battle(Player p1, Player p2)
         {
@@ -35,6 +43,16 @@ namespace RPGSystem
                 if(p2.IsAlive == true)
                 p2.Attack(p1);
                 r++;
+            }
+            if (p1.IsAlive)
+            {
+                Console.WriteLine($"{p1.Name} wins!");
+                p1.GainExperience(50);
+            }
+            else if (p2.IsAlive)
+            {
+                Console.WriteLine($"{p2.Name} wins!");
+                p2.GainExperience(50);
             }
 
         }
@@ -213,6 +231,7 @@ namespace RPGSystem
         public void GainExperience(int xp)
         {
             Experience += xp;
+            Console.WriteLine($"{Name} gains {xp} xp");
             while(Experience >= 100 * Level)
             {
                 Console.WriteLine($"{Name} has leveled up. " +
