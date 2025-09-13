@@ -1,9 +1,10 @@
-﻿using System;
+﻿using RPGSystem.Interfaces;
+using System;
 using System.Collections.Generic;
 
 namespace RPGSystem
 {
-    public class Player : ICarryingEntity, IDamageable
+    public class Player : ICarryingEntity, IDamageable, IAttacker
     {
         public string Name { get; private set; }
         public int Health {  get; private set; }
@@ -74,7 +75,7 @@ namespace RPGSystem
         {
             Console.WriteLine($"{Name} attacks {target.Name} ");
             int dealt = target.TakeDamage(AttackPower);
-            Console.WriteLine($"{Name} нанес {dealt} урона.");
+            Console.WriteLine($"{Name} dealt {dealt} damage.");
         }
 
         public void Heal(int amount)

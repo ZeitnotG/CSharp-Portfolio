@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="Core\BattleService.cs" />
     <Compile Include="Core\Program.cs" />
+    <Compile Include="Interfaces\IAttacker.cs" />
     <Compile Include="Interfaces\ICarryingEntity.cs" />
     <Compile Include="Interfaces\IDamageable.cs" />
     <Compile Include="Models\Enemy.cs" />

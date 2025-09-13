@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Security.Cryptography.X509Certificates;
 
 namespace RPGSystem
 {
@@ -30,6 +29,9 @@ namespace RPGSystem
             BattleService.Battle(player1, player);
 
             player.EquipItem(potion);
+
+            Enemy zombie = new Enemy("Zombie", 15, 3, 1, 6, 40);
+            BattleService.Battle(player, zombie);
         }
         
     }

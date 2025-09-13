@@ -1,21 +1,24 @@
+using RPGSystem.Interfaces;
 using System;
 
 namespace RPGSystem
 {
 
-    public class Enemy : IDamageable
+    public class Enemy : IDamageable, IAttacker
     {
         public string Name { get; private set; }
         public int Health { get; private set; }
+        public int AttackPower { get; private set; }
         public int Defense { get; private set; }
         public int Level { get; private set; }
         public int XPReward { get; private set; }
         public bool IsAlive { get; private set; }
 
-        public Enemy(string name, int health, int defense, int level, int xPReward)
+        public Enemy(string name, int health, int attackPower, int defense, int level, int xPReward)
         {
             Name = name;
             Health = health;
+            AttackPower = attackPower;
             Defense = defense;
             Level = level;
             XPReward = xPReward;
@@ -34,6 +37,13 @@ namespace RPGSystem
                 IsAlive = false;
             }
             return damage;
+        }
+
+        public void Attack(IDamageable target)
+        {
+            Console.WriteLine($"{Name} attacks {target.Name} ");
+            int dealt = target.TakeDamage(AttackPower);
+            Console.WriteLine($"{Name} dealt {dealt} damage.");
         }
     }
 }
