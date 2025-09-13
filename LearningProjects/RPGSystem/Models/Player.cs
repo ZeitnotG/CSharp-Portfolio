@@ -14,6 +14,8 @@ namespace RPGSystem
         public int BaseDefense {  get; private set; }
         public int Experience {  get; private set; }
         public int Level { get; private set; }
+
+        public int XPReward { get; private set; }
         public double MaxWeight { get; private set; }
 
         public Inventory Inventory { get; private set; }
@@ -38,6 +40,8 @@ namespace RPGSystem
             IsAlive = true;
             BaseAttack = AttackPower;
             BaseDefense = Defense;
+
+            XPReward = Level * 100;
 
             EquippedItems = new Dictionary<ItemType, Item>();
         }

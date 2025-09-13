@@ -19,12 +19,12 @@ namespace RPGSystem
             if (p1.IsAlive)
             {
                 Console.WriteLine($"{p1.Name} wins!");
-                p1.GainExperience(50);
+                p1.GainExperience(p2.XPReward);
             }
             else if (p2.IsAlive)
             {
                 Console.WriteLine($"{p2.Name} wins!");
-                p2.GainExperience(50);
+                p2.GainExperience(p1.XPReward);
             }
 
         }
