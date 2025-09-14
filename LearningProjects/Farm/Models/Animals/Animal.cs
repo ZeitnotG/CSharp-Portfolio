@@ -7,16 +7,13 @@ namespace Farm
         Egg,
         Meal
     }
-    public class Animal
+    public abstract class Animal
     {
         public string Name { get; set; }
         public int Health {  get; set; }
         public int Hunger {  get; set; }
-        public ProductType productType { get; set; }
-        public int Produce(ProductType productType)
-        {
-            int amount = 0;
-            return amount;
-        }
+        public abstract void Produce();
+        public abstract void Eat();
+
     }
 }
