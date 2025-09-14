@@ -1,8 +1,8 @@
-﻿using Farm.Models.Products;
+﻿using FarmSim.Models.Products;
 using System;
 using System.Collections.Generic;
 
-namespace Farm.Core
+namespace FarmSim.Core
 {
     internal class Farm
     {

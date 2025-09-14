@@ -1,9 +1,9 @@
-﻿using Farm;
-using Farm.Models.Products;
+﻿using FarmSim;
+using FarmSim.Models.Products;
 using System;
 using System.Collections.Generic;
 
-namespace Farm.Models.Products
+namespace FarmSim.Models.Products
 {
     public static class ProductCatalog
     {

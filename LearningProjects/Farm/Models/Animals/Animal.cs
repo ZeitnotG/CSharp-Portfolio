@@ -1,6 +1,6 @@
-﻿using Farm.Models.Products;
+﻿using FarmSim.Models.Products;
 using System;
-namespace Farm
+namespace FarmSim
 {
     public enum ProductType
     {
@@ -18,8 +18,18 @@ namespace Farm
         public abstract void Produce();
         public virtual void Eat(Product feed)
         {
-            Hunger -= Math.Max(0, Hunger - feed.Nutrition);
+            Hunger = Math.Max(0, Hunger - feed.Nutrition);
+        }
+        public Animal(string name, int health, int hunger)
+        {
+            Name = name;
+            Health = health;
+            Hunger = hunger;
         }
 
+        public void ShowInfo()
+        {
+            Console.WriteLine($"Name: {Name}, Health: {Health}, Hunger: {Hunger}");
+        }
     }
 }

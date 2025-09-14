@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Farm.Models.Products
+namespace FarmSim.Models.Products
 {
     public class Product
     {

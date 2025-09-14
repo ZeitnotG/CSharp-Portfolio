@@ -1,10 +1,17 @@
-﻿using Farm.Models.Products;
+﻿using FarmSim.Models.Products;
 using System;
 
-namespace Farm
+namespace FarmSim
 {
-    internal class Chicken:Animal
+    internal class Chicken : Animal
     {
+        public Chicken(string name, int health, int hunger) : base(name, health, hunger)
+        {
+            Name = name;
+            Health = health;
+            Hunger = hunger;
+        }
+
         public override void Produce()
         {
             Console.WriteLine("Chicken produces eggs");

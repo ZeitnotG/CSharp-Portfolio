@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Farm
+namespace FarmSim
 {
     internal class Pig : Animal
     {
@@ -8,9 +8,15 @@ namespace Farm
         {
             Console.WriteLine("Pigs produces meal");
         }
-       /* public override void Eat()
+        /* public override void Eat()
+         {
+             Console.WriteLine("Pig eats all");
+         }*/
+        public Pig(string name, int health, int hunger) : base(name, health, hunger)
         {
-            Console.WriteLine("Pig eats all");
-        }*/
+            Name = name;
+            Health = health;
+            Hunger = hunger;
+        }
     }
 }

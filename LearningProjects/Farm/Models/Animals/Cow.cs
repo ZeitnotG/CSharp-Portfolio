@@ -1,7 +1,7 @@
-﻿using Farm.Models.Products;
+﻿using FarmSim.Models.Products;
 using System;
 
-namespace Farm
+namespace FarmSim
 {
     internal class Cow : Animal
     {
@@ -13,6 +13,12 @@ namespace Farm
         public override void Eat(Product feed)
         {
             Console.WriteLine("Cow eats hay");
+        }
+        public Cow(string name, int health, int hunger) : base(name, health, hunger)
+        {
+            Name = name;
+            Health = health;
+            Hunger = hunger;
         }
     }
 }
