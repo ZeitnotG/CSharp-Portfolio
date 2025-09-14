@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Farm.Models.Products;
+using System;
 
 namespace Farm
 {
@@ -9,7 +10,7 @@ namespace Farm
             Console.WriteLine("Cow produces milk");
         }
 
-        public override void Eat()
+        public override void Eat(Product feed)
         {
             Console.WriteLine("Cow eats hay");
         }

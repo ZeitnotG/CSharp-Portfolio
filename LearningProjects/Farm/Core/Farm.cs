@@ -1,0 +1,78 @@
+﻿using Farm.Models.Products;
+using System;
+using System.Collections.Generic;
+
+namespace Farm.Core
+{
+    internal class Farm
+    {
+        private List<Animal> Animals;
+        public Dictionary<ProductType, int> Storage { get; }
+        public Farm()
+        {
+            Animals = new List<Animal>();
+            Storage = new Dictionary<ProductType, int>();
+            foreach (ProductType pt in Enum.GetValues(typeof(ProductType)))
+                Storage[pt] = 0;
+        }
+
+        public void AddAnimal(Animal animal)
+        {
+            Animals.Add(animal);
+            Console.WriteLine($"{animal.Name} added to your farm");
+        }
+        public void FeedAnimals()
+        {
+            foreach (Animal animal in Animals)
+            {
+                switch (animal)
+                {
+                    case Cow cow:
+                        cow.Eat(ProductCatalog.Get(ProductType.Hay));
+                        break;
+                    case Chicken chicken:
+                        chicken.Eat(ProductCatalog.Get(ProductType.Corn));
+                        break;
+                    case Pig pig:
+                        if (ConsumeFromStorage(ProductType.Corn))
+                            pig.Eat(ProductCatalog.Get(ProductType.Corn));
+                        else if (ConsumeFromStorage(ProductType.Hay))
+                            pig.Eat(ProductCatalog.Get(ProductType.Hay));
+                        else
+                            Console.WriteLine($"{pig.Name} has nothing to eat");
+                            break;
+                    default:
+                        Console.WriteLine($"{animal.Name} could not be fed");
+                        break;
+                }
+            }
+        }
+        public void CollectProducts()
+        {
+
+        }
+        public void CheckPrices()
+        {
+
+        }
+        public void Trade()
+        {
+
+        }
+
+        public void AddToStorage(ProductType type, int quantity = 1)
+        {
+            Storage[type] += quantity;
+        }
+
+        public bool ConsumeFromStorage(ProductType type, int quantity = 1)
+        {
+            if (Storage.TryGetValue(type, out int available) && available > quantity)
+            {
+                Storage[type] -= quantity;
+                return true;
+            }
+            return false;
+        }
+    }
+}

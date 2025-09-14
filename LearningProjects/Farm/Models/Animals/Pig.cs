@@ -8,9 +8,9 @@ namespace Farm
         {
             Console.WriteLine("Pigs produces meal");
         }
-        public override void Eat()
+       /* public override void Eat()
         {
             Console.WriteLine("Pig eats all");
-        }
+        }*/
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System;
 namespace Farm
 {
-    internal class Program
+    internal class Game
     {
         static void Main(string[] args)
         {
