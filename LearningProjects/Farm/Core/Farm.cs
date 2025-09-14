@@ -1,6 +1,7 @@
 ﻿using FarmSim.Models.Products;
 using System;
 using System.Collections.Generic;
+using System.Net.NetworkInformation;
 
 namespace FarmSim.Core
 {
@@ -28,10 +29,16 @@ namespace FarmSim.Core
                 switch (animal)
                 {
                     case Cow cow:
-                        cow.Eat(ProductCatalog.Get(ProductType.Hay));
+                        if (ConsumeFromStorage(ProductType.Hay))
+                            cow.Eat(ProductCatalog.Get(ProductType.Hay));
+                        else
+                            Console.WriteLine($"{cow.Name} has nothing to eat");
                         break;
                     case Chicken chicken:
-                        chicken.Eat(ProductCatalog.Get(ProductType.Corn));
+                        if (ConsumeFromStorage(ProductType.Corn))
+                            chicken.Eat(ProductCatalog.Get(ProductType.Corn));
+                        else
+                            Console.WriteLine($"{chicken.Name} has nothing to eat");
                         break;
                     case Pig pig:
                         if (ConsumeFromStorage(ProductType.Corn))
@@ -62,12 +69,15 @@ namespace FarmSim.Core
 
         public void AddToStorage(ProductType type, int quantity = 1)
         {
-            Storage[type] += quantity;
+            if (Storage.ContainsKey(type))
+                Storage[type] += quantity;
+            else
+                Storage[type] = quantity;
         }
 
         public bool ConsumeFromStorage(ProductType type, int quantity = 1)
         {
-            if (Storage.TryGetValue(type, out int available) && available > quantity)
+            if (Storage.TryGetValue(type, out int available) && available >= quantity)
             {
                 Storage[type] -= quantity;
                 return true;

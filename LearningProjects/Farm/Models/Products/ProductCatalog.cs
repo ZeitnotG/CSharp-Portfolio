@@ -16,6 +16,10 @@ namespace FarmSim.Models.Products
         { ProductType.Meat, new Product(ProductType.Meat, "Meat", 8, 20) },
     };
 
-        public static Product Get(ProductType type) => Templates[type];
+        public static Product Get(ProductType type)
+        {
+            var p = Templates[type];
+            return new Product(p.Type, p.Name, p.Value, p.Nutrition);
+        }
     }
 }
