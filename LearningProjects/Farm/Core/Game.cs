@@ -15,6 +15,7 @@ namespace FarmSim
             farm.AddAnimal(chicken);
             farm.FeedAnimals();
             chicken.ShowInfo();
+
         }
     }
 }

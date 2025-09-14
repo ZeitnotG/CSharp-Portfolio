@@ -12,6 +12,7 @@ namespace FarmSim
 
         public override void Eat(Product feed)
         {
+            base.Eat(feed);
             Console.WriteLine("Cow eats hay");
         }
         public Cow(string name, int health, int hunger) : base(name, health, hunger)

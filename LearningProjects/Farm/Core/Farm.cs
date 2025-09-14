@@ -7,7 +7,7 @@ namespace FarmSim.Core
 {
     internal class Farm
     {
-        private List<Animal> Animals;
+        public List<Animal> Animals;
         public Dictionary<ProductType, int> Storage { get; }
         public Farm()
         {
@@ -36,7 +36,7 @@ namespace FarmSim.Core
                         break;
                     case Chicken chicken:
                         if (ConsumeFromStorage(ProductType.Corn))
-                            chicken.Eat(ProductCatalog.Get(ProductType.Corn));
+                        chicken.Eat(ProductCatalog.Get(ProductType.Corn));
                         else
                             Console.WriteLine($"{chicken.Name} has nothing to eat");
                         break;

@@ -18,7 +18,7 @@ namespace FarmSim
         }
         public override void Eat(Product feed)
         {
-            
+            base.Eat(feed);
             Console.WriteLine("Chicken eats corn");
         }
     }
