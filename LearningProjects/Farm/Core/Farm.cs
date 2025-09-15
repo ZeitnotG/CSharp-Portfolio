@@ -77,9 +77,23 @@ namespace FarmSim.Core
         {
 
         }
-        public void Buy()
+        public void Buy(ProductType type, int quantity)
         {
+            if (!PriceList.BuyPrices.ContainsKey(type))
+            {
+                Console.WriteLine($"{type} cannot be bought");
+                return;
+            }
 
+            int cost = PriceList.BuyPrices[type] * quantity;
+            if (Money >= cost)
+            {
+                Money -= cost;
+                Storage[type] += quantity;
+                Console.WriteLine($"Bought {quantity} {type} for {cost} coins. Money left: {Money}");
+            }
+            else
+                Console.WriteLine("Not enough money!");
         }
         public void Sell()
         {
