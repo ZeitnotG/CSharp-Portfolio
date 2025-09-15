@@ -12,9 +12,10 @@ namespace FarmSim
             Hunger = hunger;
         }
 
-        public override void Produce()
+        public override Product Produce()
         {
             Console.WriteLine("Chicken produces eggs");
+            return ProductCatalog.Get(ProductType.Egg);
         }
         public override void Eat(Product feed)
         {

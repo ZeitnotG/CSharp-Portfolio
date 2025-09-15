@@ -12,9 +12,13 @@ namespace FarmSim
             farm.AddToStorage(ProductType.Corn, 10);
 
             Animal chicken = new Chicken("Chick", 30, 40);
+            Animal cow = new Cow("Cow", 30, 40);
             farm.AddAnimal(chicken);
+            farm.AddAnimal(cow);
             farm.FeedAnimals();
             chicken.ShowInfo();
+            cow.ShowInfo();
+            farm.CollectProducts();
 
         }
     }

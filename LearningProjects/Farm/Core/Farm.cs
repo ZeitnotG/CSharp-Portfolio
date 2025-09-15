@@ -56,7 +56,19 @@ namespace FarmSim.Core
         }
         public void CollectProducts()
         {
-
+            foreach(Animal animal in Animals)
+            {
+                Product product = animal.Produce();
+                if (product != null)
+                {
+                    if (Storage.ContainsKey(product.Type))
+                        Storage[product.Type]++;
+                    else
+                        Storage[product.Type] = 1;
+                }
+            }
+            Console.WriteLine($"Your storage: Eggs = {Storage[ProductType.Egg]}, Milk = {Storage[ProductType.Milk]}, Meat = {Storage[ProductType.Meat]}," +
+    $"Corn = {Storage[ProductType.Corn]}, Hay = {Storage[ProductType.Hay]}");
         }
         public void CheckPrices()
         {

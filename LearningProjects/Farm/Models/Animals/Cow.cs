@@ -5,9 +5,10 @@ namespace FarmSim
 {
     internal class Cow : Animal
     {
-        public override void Produce()
+        public override Product Produce()
         {
             Console.WriteLine("Cow produces milk");
+            return ProductCatalog.Get(ProductType.Milk);
         }
 
         public override void Eat(Product feed)

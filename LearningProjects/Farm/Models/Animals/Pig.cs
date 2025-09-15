@@ -1,12 +1,14 @@
-﻿using System;
+﻿using FarmSim.Models.Products;
+using System;
 
 namespace FarmSim
 {
     internal class Pig : Animal
     {
-        public override void Produce()
+        public override Product Produce()
         {
             Console.WriteLine("Pigs produces meal");
+            return null;
         }
         /* public override void Eat()
          {

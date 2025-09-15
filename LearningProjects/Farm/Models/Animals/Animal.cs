@@ -15,7 +15,7 @@ namespace FarmSim
         public string Name { get; set; }
         public int Health {  get; set; }
         public int Hunger {  get; set; }
-        public abstract void Produce();
+        public abstract Product Produce();
         public virtual void Eat(Product feed)
         {
             Hunger = Math.Max(0, Hunger - feed.Nutrition);
