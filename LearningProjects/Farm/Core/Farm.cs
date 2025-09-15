@@ -1,4 +1,5 @@
-﻿using FarmSim.Models.Products;
+﻿using Farm.Models.Products;
+using FarmSim.Models.Products;
 using System;
 using System.Collections.Generic;
 using System.Net.NetworkInformation;
@@ -7,10 +8,12 @@ namespace FarmSim.Core
 {
     internal class Farm
     {
+        public int Money { get; private set; }
         public List<Animal> Animals;
         public Dictionary<ProductType, int> Storage { get; }
         public Farm()
         {
+            Money = 0;
             Animals = new List<Animal>();
             Storage = new Dictionary<ProductType, int>();
             foreach (ProductType pt in Enum.GetValues(typeof(ProductType)))
@@ -74,9 +77,23 @@ namespace FarmSim.Core
         {
 
         }
-        public void Trade()
+        public void Buy()
         {
 
+        }
+        public void Sell()
+        {
+            foreach (KeyValuePair<ProductType, int> kvp in PriceList.SellPrices)
+            {
+                ProductType type = kvp.Key;
+                int price = kvp.Value;
+
+                if (Storage[type] > 0)
+                {
+                    Money += Storage[type] * price;
+                    Console.WriteLine($"Sold {Storage[type]} for {price} coins");
+                }
+            }
         }
 
         public void AddToStorage(ProductType type, int quantity = 1)
