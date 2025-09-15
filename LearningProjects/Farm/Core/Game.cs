@@ -6,7 +6,7 @@ namespace FarmSim
     {
         static void Main(string[] args)
         {
-            Farm farm = new Farm();
+            FarmSim.Core.Farm farm = new FarmSim.Core.Farm();
 
             farm.AddToStorage(ProductType.Hay, 10);
             farm.AddToStorage(ProductType.Corn, 10);
@@ -19,7 +19,8 @@ namespace FarmSim
             chicken.ShowInfo();
             cow.ShowInfo();
             farm.CollectProducts();
-
+            farm.Sell();
+            farm.Buy(ProductType.Hay, 5);
         }
     }
 }

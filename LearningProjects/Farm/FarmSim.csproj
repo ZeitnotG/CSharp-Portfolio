@@ -51,6 +51,7 @@
     <Compile Include="Core\Game.cs" />
     <Compile Include="Models\Products\Product.cs" />
     <Compile Include="Models\Products\ProductCatalog.cs" />
+    <Compile Include="PriceList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
