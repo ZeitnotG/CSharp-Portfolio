@@ -8,8 +8,9 @@ namespace FarmSim
         private FarmSim.Core.Farm farm;
         static void Main(string[] args)
         {
-            Animal chicken = new Chicken("Chick", 30, 40);
-            Animal cow = new Cow("Cow", 30, 40);
+
+            Game game = new Game();
+            game.Run();
         }
       
         public Game()
@@ -20,12 +21,18 @@ namespace FarmSim
 
         public void Run()
         {
+            Animal chicken = new Chicken("Chick", 30, 40);
+            Animal cow = new Cow("Cow", 30, 40);
+
+            farm.AddAnimal(cow);
+            farm.AddAnimal(chicken);
+
             while (true)
             {
                 Console.WriteLine($"\n=== Day {day} ===");
 
                 farm.FeedAnimals();
-
+                farm.Animals.ForEach(animal => animal.TickDay());
                 farm.CollectProducts();
 
                 Console.WriteLine("Do you want to sell or buy? sell/buy/skip");

@@ -7,8 +7,17 @@ namespace FarmSim
     {
         public override Product Produce()
         {
-            Console.WriteLine("Cow produces milk");
-            return ProductCatalog.Get(ProductType.Milk);
+            if (!isAlive)
+                return null;
+            if (Hunger > 60 || Health < 30)
+                return null;
+            if (LastProducedDay >= ProduceIntevalDays)
+            {
+                LastProducedDay = 0;
+                Console.WriteLine("Cow produces milk");
+                return ProductCatalog.Get(ProductType.Milk);
+            }
+            return null;
         }
 
         public override void Eat(Product feed)
@@ -21,6 +30,7 @@ namespace FarmSim
             Name = name;
             Health = health;
             Hunger = hunger;
+            ProduceIntevalDays = 2;
         }
     }
 }

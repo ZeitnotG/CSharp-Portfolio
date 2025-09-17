@@ -15,6 +15,10 @@ namespace FarmSim
         public string Name { get; set; }
         public int Health {  get; set; }
         public int Hunger {  get; set; }
+        public int Hapiness {  get; set; }
+        public int LastProducedDay {  get; protected set; }
+        public int ProduceIntevalDays { get; protected set; }
+        public bool isAlive => Health> 0;
         public abstract Product Produce();
         public virtual void Eat(Product feed)
         {
@@ -27,6 +31,22 @@ namespace FarmSim
             Hunger = hunger;
         }
 
+        public virtual void TickDay()
+        {
+            Hunger += Math.Min(0, Hunger+10);
+
+            if (Hunger > 70)
+            {
+                Health = Math.Max(0, Health - (Hunger - 70) / 5);
+            }
+
+            LastProducedDay++;
+
+            if (Health < 30)
+            {
+                Hapiness = Math.Max(0, Hapiness - 5);
+            }
+        }
         public void ShowInfo()
         {
             Console.WriteLine($"Name: {Name}, Health: {Health}, Hunger: {Hunger}");

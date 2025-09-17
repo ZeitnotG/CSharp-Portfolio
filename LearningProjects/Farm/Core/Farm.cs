@@ -13,7 +13,7 @@ namespace FarmSim.Core
         public Dictionary<ProductType, int> Storage { get; }
         public Farm()
         {
-            Money = 0;
+            Money = 100;
             Animals = new List<Animal>();
             Storage = new Dictionary<ProductType, int>();
             foreach (ProductType pt in Enum.GetValues(typeof(ProductType)))
@@ -105,7 +105,8 @@ namespace FarmSim.Core
                 if (Storage[type] > 0)
                 {
                     Money += Storage[type] * price;
-                    Console.WriteLine($"Sold {Storage[type]} for {price} coins");
+                    Console.WriteLine($"Sold {Storage[type]} for {price} coins. Money: {Money}");
+                    Storage[type] = 0;
                 }
             }
         }
