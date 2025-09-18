@@ -5,11 +5,9 @@ namespace FarmSim
 {
     internal class Chicken : Animal
     {
-        public Chicken(string name, int health, int hunger) : base(name, health, hunger)
+        public Chicken(string name) : base(name)
         {
             Name = name;
-            Health = health;
-            Hunger = hunger;
             ProduceIntevalDays = 1;
         }
 
@@ -32,6 +30,11 @@ namespace FarmSim
         {
             base.Eat(feed);
             Console.WriteLine("Chicken eats corn");
+        }
+
+        public override Animal Clone(string name)
+        {
+            return new Chicken(name);
         }
     }
 }

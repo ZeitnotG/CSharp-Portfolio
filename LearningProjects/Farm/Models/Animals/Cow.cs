@@ -25,12 +25,15 @@ namespace FarmSim
             base.Eat(feed);
             Console.WriteLine("Cow eats hay");
         }
-        public Cow(string name, int health, int hunger) : base(name, health, hunger)
+        public Cow(string name) : base(name)
         {
             Name = name;
-            Health = health;
-            Hunger = hunger;
             ProduceIntevalDays = 2;
+        }
+
+        public override Animal Clone(string name)
+        {
+            return new Cow(name);
         }
     }
 }

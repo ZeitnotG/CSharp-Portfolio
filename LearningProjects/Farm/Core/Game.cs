@@ -21,17 +21,20 @@ namespace FarmSim
 
         public void Run()
         {
-            Animal chicken = new Chicken("Chick", 30, 40);
-            Animal cow = new Cow("Cow", 30, 40);
+            Animal chicken = new Chicken("Chick");
+            Animal chicken1 = new Chicken("Honey");
+            Animal cow = new Cow("Cow");
 
             farm.AddAnimal(cow);
             farm.AddAnimal(chicken);
+            farm.AddAnimal(chicken1);
 
             while (true)
             {
                 Console.WriteLine($"\n=== Day {day} ===");
 
                 farm.FeedAnimals();
+                farm.HandleReproduct();
                 farm.Animals.ForEach(animal => animal.TickDay());
                 farm.CollectProducts();
 

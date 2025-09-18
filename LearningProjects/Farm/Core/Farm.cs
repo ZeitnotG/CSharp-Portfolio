@@ -2,6 +2,7 @@
 using FarmSim.Models.Products;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.NetworkInformation;
 
 namespace FarmSim.Core
@@ -39,7 +40,7 @@ namespace FarmSim.Core
                         break;
                     case Chicken chicken:
                         if (ConsumeFromStorage(ProductType.Corn))
-                        chicken.Eat(ProductCatalog.Get(ProductType.Corn));
+                            chicken.Eat(ProductCatalog.Get(ProductType.Corn));
                         else
                             Console.WriteLine($"{chicken.Name} has nothing to eat");
                         break;
@@ -50,7 +51,7 @@ namespace FarmSim.Core
                             pig.Eat(ProductCatalog.Get(ProductType.Hay));
                         else
                             Console.WriteLine($"{pig.Name} has nothing to eat");
-                            break;
+                        break;
                     default:
                         Console.WriteLine($"{animal.Name} could not be fed");
                         break;
@@ -59,7 +60,7 @@ namespace FarmSim.Core
         }
         public void CollectProducts()
         {
-            foreach(Animal animal in Animals)
+            foreach (Animal animal in Animals)
             {
                 Product product = animal.Produce();
                 if (product != null)
@@ -127,6 +128,41 @@ namespace FarmSim.Core
                 return true;
             }
             return false;
+        }
+
+        public void HandleReproduct()
+        {
+            var groups = Animals.GroupBy(a => a.GetType());
+
+            foreach (var group in groups)
+            {
+                int count = group.Count();
+                if (count < 2)
+                    continue;
+
+                double baseChance = 0.05;
+
+                double reproductionChance = baseChance * (count - 1);
+
+                Random rnd = new Random();
+
+                if (rnd.NextDouble() < reproductionChance)
+                {
+                    Animal parent = group.First();
+                    string childName = GenerateUniqueName(parent);
+                    Animal child = parent.Clone(childName);
+                    Animals.Add(child);
+
+                    Console.WriteLine($"{parent.GetType().Name} reproduced! New baby {child.Name} was born.");
+                }
+            }
+        }
+
+        private int _animalCounter = 1;
+
+        private string GenerateUniqueName(Animal parent)
+        {
+            return $"{parent.GetType().Name}_{_animalCounter++}";
         }
     }
 }

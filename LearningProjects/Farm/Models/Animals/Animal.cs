@@ -15,7 +15,7 @@ namespace FarmSim
         public string Name { get; set; }
         public int Health {  get; set; }
         public int Hunger {  get; set; }
-        public int Hapiness {  get; set; }
+        public int Happiness {  get; set; }
         public int LastProducedDay {  get; protected set; }
         public int ProduceIntevalDays { get; protected set; }
         public bool isAlive => Health> 0;
@@ -24,11 +24,18 @@ namespace FarmSim
         {
             Hunger = Math.Max(0, Hunger - feed.Nutrition);
         }
-        public Animal(string name, int health, int hunger)
+        public Animal(string name)
         {
             Name = name;
-            Health = health;
-            Hunger = hunger;
+           ResetStats();
+        }
+
+        protected void ResetStats()
+        {
+            Hunger = 0;
+            Health = 100;
+            Happiness = 100;
+            LastProducedDay = 0;
         }
 
         public virtual void TickDay()
@@ -44,12 +51,15 @@ namespace FarmSim
 
             if (Health < 30)
             {
-                Hapiness = Math.Max(0, Hapiness - 5);
+                Happiness = Math.Max(0, Happiness - 5);
             }
         }
+
         public void ShowInfo()
         {
             Console.WriteLine($"Name: {Name}, Health: {Health}, Hunger: {Hunger}");
         }
+
+        public abstract Animal Clone(string name);
     }
 }

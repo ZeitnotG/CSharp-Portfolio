@@ -14,11 +14,14 @@ namespace FarmSim
          {
              Console.WriteLine("Pig eats all");
          }*/
-        public Pig(string name, int health, int hunger) : base(name, health, hunger)
+        public Pig(string name) : base(name)
         {
-            Name = name;
-            Health = health;
-            Hunger = hunger;
+
+        }
+
+        public override Animal Clone(string name)
+        {
+            return new Pig(name);
         }
     }
 }
