@@ -4,7 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.NetworkInformation;
-
+using Newtonsoft.Json;
+using System.IO;
 namespace FarmSim.Core
 {
     internal class Farm
@@ -163,6 +164,22 @@ namespace FarmSim.Core
         private string GenerateUniqueName(Animal parent)
         {
             return $"{parent.GetType().Name}_{_animalCounter++}";
+        }
+
+        public void SaveGame(Farm farm)
+        {
+            string json = JsonConvert.SerializeObject(farm, Formatting.Indented,
+                new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All});
+            string filePath = "save.json";
+            File.WriteAllText(filePath, json);
+            Console.WriteLine("Saved in save.json");
+            Console.WriteLine(json);
+        }
+
+        public void LoadGame()
+        {
+            string loadedJson = File.ReadAllText("save.json");
+            Animals = JsonConvert.DeserializeObject<List<Animal>>(loadedJson);
         }
     }
 }

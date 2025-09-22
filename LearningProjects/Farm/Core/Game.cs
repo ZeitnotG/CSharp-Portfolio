@@ -38,7 +38,7 @@ namespace FarmSim
                 farm.Animals.ForEach(animal => animal.TickDay());
                 farm.CollectProducts();
 
-                Console.WriteLine("Do you want to sell or buy? sell/buy/skip");
+                Console.WriteLine("Do you want to sell or buy? sell/buy/skip/save");
                 string action = Console.ReadLine();
                 if (action == "sell")
                     farm.Sell();
@@ -53,7 +53,9 @@ namespace FarmSim
                         farm.Buy(productType, quantity);
                     }
                 }
-                else 
+                else if (action == "save")
+                    farm.SaveGame();
+                else
                     Console.WriteLine("Unknown command");
 
                day++;
