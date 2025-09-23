@@ -38,7 +38,7 @@ namespace FarmSim
                 farm.Animals.ForEach(animal => animal.TickDay());
                 farm.CollectProducts();
 
-                Console.WriteLine("Do you want to sell or buy? sell/buy/skip/save");
+                Console.WriteLine("Do you want to sell or buy? sell/buy/skip/save/load");
                 string action = Console.ReadLine();
                 if (action == "sell")
                     farm.Sell();
@@ -54,7 +54,9 @@ namespace FarmSim
                     }
                 }
                 else if (action == "save")
-                    farm.SaveGame();
+                    farm.SaveGame(farm);
+                else if (action == "load")
+                    farm.LoadGame();
                 else
                     Console.WriteLine("Unknown command");
 

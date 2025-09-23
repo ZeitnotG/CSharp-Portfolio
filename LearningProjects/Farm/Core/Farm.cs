@@ -179,7 +179,17 @@ namespace FarmSim.Core
         public void LoadGame()
         {
             string loadedJson = File.ReadAllText("save.json");
-            Animals = JsonConvert.DeserializeObject<List<Animal>>(loadedJson);
+            Farm loadedFarm = JsonConvert.DeserializeObject<Farm>(loadedJson,
+                new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All});
+
+            Console.WriteLine($"Storage: Milk = {loadedFarm.Storage[ProductType.Milk]}, " +
+                $"Egg = {loadedFarm.Storage[ProductType.Egg]}, Meat = {loadedFarm.Storage[ProductType.Meat]} ," +
+                $"Corn = {loadedFarm.Storage[ProductType.Corn]}, Hay = {loadedFarm.Storage[ProductType.Hay]}");
+
+            foreach (var animal in loadedFarm.Animals)
+            {
+                Console.WriteLine($"Name: {animal.Name}, Happiness: {animal.Happiness}");
+            }
         }
     }
 }
