@@ -19,7 +19,6 @@ namespace FarmSim
         public int LastProducedDay {  get; protected set; }
         public int ProduceIntevalDays { get; protected set; }
 
-        public string AnimalType { get; set; }
         public bool isAlive => Health> 0;
         public abstract Product Produce();
         public virtual void Eat(Product feed)

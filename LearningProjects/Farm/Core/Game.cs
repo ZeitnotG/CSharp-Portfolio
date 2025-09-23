@@ -4,7 +4,6 @@ namespace FarmSim
 {
     internal class Game
     {
-        private int day;
         private FarmSim.Core.Farm farm;
         static void Main(string[] args)
         {
@@ -15,7 +14,6 @@ namespace FarmSim
       
         public Game()
         {
-            day = 1;
             farm = new FarmSim.Core.Farm();
         }
 
@@ -31,7 +29,7 @@ namespace FarmSim
 
             while (true)
             {
-                Console.WriteLine($"\n=== Day {day} ===");
+                Console.WriteLine($"\n=== Day {farm.Day} ===");
 
                 farm.FeedAnimals();
                 farm.HandleReproduct();
@@ -41,7 +39,10 @@ namespace FarmSim
                 Console.WriteLine("Do you want to sell or buy? sell/buy/skip/save/load");
                 string action = Console.ReadLine();
                 if (action == "sell")
+                {
                     farm.Sell();
+                    farm.Day++;
+                }
                 else if (action == "buy")
                 {
                     Console.WriteLine("What do you want to buy? Hay/Corn");
@@ -52,15 +53,14 @@ namespace FarmSim
                         int quantity = int.Parse(Console.ReadLine());
                         farm.Buy(productType, quantity);
                     }
+                    farm.Day++;
                 }
                 else if (action == "save")
                     farm.SaveGame(farm);
                 else if (action == "load")
-                    farm.LoadGame();
+                    farm = farm.LoadGame(farm);
                 else
                     Console.WriteLine("Unknown command");
-
-               day++;
             }
         }
 

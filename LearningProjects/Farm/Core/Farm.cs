@@ -10,11 +10,13 @@ namespace FarmSim.Core
 {
     internal class Farm
     {
+        public int Day { get; set; }
         public int Money { get; private set; }
         public List<Animal> Animals;
         public Dictionary<ProductType, int> Storage { get; }
         public Farm()
         {
+            Day = 1;
             Money = 100;
             Animals = new List<Animal>();
             Storage = new Dictionary<ProductType, int>();
@@ -176,7 +178,7 @@ namespace FarmSim.Core
             Console.WriteLine(json);
         }
 
-        public void LoadGame()
+        public Farm LoadGame(Farm farm)
         {
             string loadedJson = File.ReadAllText("save.json");
             Farm loadedFarm = JsonConvert.DeserializeObject<Farm>(loadedJson,
@@ -190,6 +192,8 @@ namespace FarmSim.Core
             {
                 Console.WriteLine($"Name: {animal.Name}, Happiness: {animal.Happiness}");
             }
+
+            return loadedFarm;
         }
     }
 }
