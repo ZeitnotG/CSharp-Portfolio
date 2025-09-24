@@ -5,7 +5,6 @@
         static void Main(string[] args)
         {
             Storage storage = new Storage();
-            TaskRepository repo = new TaskRepository();
             bool isRunning = true;
 
             int nextId = 1;
@@ -60,10 +59,10 @@
                             Console.WriteLine("Task not found!");
                         break;
                     case "5":
-                        repo.Save(storage.tasks);
+                        storage.Save();
                         break;
                     case "6":
-                        storage.tasks = repo.Load();
+                        storage.Load();
                         break;
                     case "0":
                         isRunning = false;

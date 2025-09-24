@@ -8,21 +8,17 @@ namespace To_DoList
 {
     internal class Storage
     {
-       public List<TodoItem> tasks {  get; set; }
+        TaskRepository repo = new TaskRepository();
+        public List<TodoItem> tasks {  get;private set; }
 
         public Storage() 
         {
             tasks = new List<TodoItem>();
         }
-        public void AddTask(TodoItem item)
-        {
-            tasks.Add(item);
-        }
+        public void AddTask(TodoItem item) => tasks.Add(item);
+        
 
-        public void RemoveTask(TodoItem item)
-        {
-            tasks.Remove(item);
-        }
+        public void RemoveTask(TodoItem item) =>  tasks.Remove(item);  
 
         public void ShowAllTasks()
         {
@@ -42,5 +38,8 @@ namespace To_DoList
         {
             return tasks.FirstOrDefault(t => t.Id.ToString() == id); 
         }
+
+        public void Save() => repo.Save(tasks);
+        public void Load() => tasks = repo.Load();
     }
 }
