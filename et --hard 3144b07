@@ -1,0 +1,23 @@
+[33m3144b07[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m feat: add CollectProducts() to Farm.cs and Produce() to child animal classes
+[33m1485724[m fix: correct hunger calculation when animal eats
+[33mda22597[m refactor: Farm.AddToStorage, Farm.ConsumeFromStorage, ProductCatalog.Get refactoring
+[33m2ae279b[m add constructors to animal child classes
+[33m0ac73f9[m feat: add ProductCatalog and FeedAnimals method
+[33mdf74773[m feat: add child classes Cow, Pig, Chicken. Organize project files into folders
+[33m2960540[m feat: add parent class Animal to Farm project
+[33m0acd86c[m feat: add IAttacker and overload for Battle()
+[33ma63fb6f[m feat: implement xp reward system and add enemy.cs
+[33m9406c5e[m Reorganize project files into folders (now its correct)
+[33m9c7fa96[m Reorganize project files into folders
+[33mb5ad9d3[m refactor: move Item, Inventory, Player to separate files
+[33mf8c3093[m WIP: before splitting project into files
+[33m5d9716c[m Add tips about OOP in Notes
+[33m8715095[m Update inventory system for RPGSystem
+[33m8282d58[m Add some tips about abstract class and interface (Chat GPT version)
+[33m9cd5d7d[m Test Battle between players in RPGSystem Project
+[33m0d10dee[m Add battle system in RPGSystem Project
+[33m7ee30a3[m Add inventory system to RPGSystem Project
+[33m62e9baa[m Add RPGSystem project to LearningProjects
+[33mc53cc60[m Add Calculator mini-project to LearningProjects
+[33mcad94f3[m Add Library project to LearningProjects
+[33m7fcbde2[m Add minor fixes to the OnlineStore project
