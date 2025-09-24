@@ -1,13 +1,14 @@
-﻿using System.Linq;
-namespace To_DoList
+﻿namespace To_DoList
 {
     internal class Program
     {
         static void Main(string[] args)
         {
             Storage storage = new Storage();
-
+            TaskRepository repo = new TaskRepository();
             bool isRunning = true;
+
+            int nextId = 1;
 
             while (isRunning)
             {
@@ -16,6 +17,8 @@ namespace To_DoList
                 Console.WriteLine("2. Show all tasks");
                 Console.WriteLine("3. Complete task");
                 Console.WriteLine("4. Remove task");
+                Console.WriteLine("5. Save Todo List");
+                Console.WriteLine("6. Load Todo List");
                 Console.WriteLine("0. Exit");
                 Console.Write("Choose option: ");
 
@@ -24,13 +27,13 @@ namespace To_DoList
                 switch (input)
                 {
                     case "1":
-                        Console.Write("Enter title");
+                        Console.Write("Enter title ");
                         string title = Console.ReadLine();
-                        Console.Write("Enter description");
+                        Console.Write("Enter description ");
                         string description = Console.ReadLine();
-                        int id = storage.tasks.Count() + 1;
-                        TodoItem newTask = new TodoItem(id, title, description);
+                        TodoItem newTask = new TodoItem(nextId, title, description);
                         storage.AddTask(newTask);
+                        nextId++;
                         break;
 
                     case "2":
@@ -56,7 +59,12 @@ namespace To_DoList
                         else
                             Console.WriteLine("Task not found!");
                         break;
-
+                    case "5":
+                        repo.Save(storage.tasks);
+                        break;
+                    case "6":
+                        storage.tasks = repo.Load();
+                        break;
                     case "0":
                         isRunning = false;
                         break;

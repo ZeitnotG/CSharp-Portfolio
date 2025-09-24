@@ -8,7 +8,7 @@ namespace To_DoList
 {
     internal class Storage
     {
-       public List<TodoItem> tasks {  get; private set; }
+       public List<TodoItem> tasks {  get; set; }
 
         public Storage() 
         {
