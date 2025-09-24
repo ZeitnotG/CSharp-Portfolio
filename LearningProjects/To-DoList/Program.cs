@@ -14,7 +14,7 @@
                 Console.WriteLine("\n--- To-Do List ---");
                 Console.WriteLine("1. Add task");
                 Console.WriteLine("2. Show all tasks");
-                Console.WriteLine("3. Complete task");
+                Console.WriteLine("3. Edit task");
                 Console.WriteLine("4. Remove task");
                 Console.WriteLine("5. Save Todo List");
                 Console.WriteLine("6. Load Todo List");
@@ -44,7 +44,7 @@
                         string idToComplete = Console.ReadLine();
                         var taskToComplete = storage.FindById(idToComplete);
                         if(taskToComplete != null)
-                        storage.UpdateStatus(taskToComplete);
+                        storage.EditTask(taskToComplete);
                         else
                             Console.WriteLine("Task not found!");
                         break;
