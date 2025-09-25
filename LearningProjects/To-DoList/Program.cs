@@ -1,4 +1,5 @@
-﻿using To_DoList;
+﻿using System.ComponentModel.DataAnnotations;
+using To_DoList;
 
 namespace To_DoList
 {
@@ -95,33 +96,32 @@ namespace To_DoList
                     EditStatus(item, storage);
                     break;
                 case "5":
-                    EditTitle(item, storage);
-                    EditDescription(item, storage);
-                    EditDueTime(item, storage);
-                    EditStatus(item, storage);
+                   Action<TodoItem, Storage>[] edits = {EditTitle, EditDescription, EditDueTime, EditStatus};
+                    foreach(var edit in edits)
+                        edit(item, storage);
+                    break;
+                default:
+                    Console.WriteLine("Unknown command");
                     break;
             }
         }
 
         private static void EditTitle(TodoItem item, Storage storage)
         {
-            Console.WriteLine($"Title: {item.Title}. Input new title: ");
-            string? title = Console.ReadLine();
+            string? title = Prompt($"Title: {item.Title}. Input new title: ");
             if(!string.IsNullOrWhiteSpace(title))
             storage.UpdateTitle(item, title);
         }
 
         private static void EditDescription(TodoItem item, Storage storage)
         {
-            Console.WriteLine($"Description: {item.Description}. Input new description: ");
-            string description = Console.ReadLine();
+            string? description = Prompt($"Description: {item.Description}. Input new description: ");
             if (!string.IsNullOrWhiteSpace(description))
                 storage.UpdateDescription(item, description);
         }
 
         private static void EditDueTime(TodoItem item, Storage storage) {
-            Console.WriteLine($"Deadline: {item.DueDate}. Input new deadline (yyyy-mm-dd): ");
-            string inputDate = Console.ReadLine();
+            string? inputDate = Prompt($"Deadline: {item.DueDate}. Input new deadline (yyyy-mm-dd): ");
             if (DateTime.TryParse(inputDate, out DateTime date))
             {
                 storage.UpdateDueDate(item, date);
@@ -135,6 +135,12 @@ namespace To_DoList
         {
             storage.ToggleStatus(item);
             Console.WriteLine($"Task {item.Title} status changed");
+        }
+
+        private static string? Prompt(string message)
+        {
+            Console.WriteLine(message);
+            return Console.ReadLine();
         }
     }
 }
