@@ -1,4 +1,6 @@
-﻿namespace To_DoList
+﻿using To_DoList;
+
+namespace To_DoList
 {
     internal class Program
     {
@@ -43,8 +45,8 @@
                         Console.Write("Enter task Id: ");
                         string idToComplete = Console.ReadLine();
                         var taskToComplete = storage.FindById(idToComplete);
-                        if(taskToComplete != null)
-                        storage.EditTask(taskToComplete);
+                        if (taskToComplete != null)
+                            EditTaskInteractive(taskToComplete, storage);
                         else
                             Console.WriteLine("Task not found!");
                         break;
@@ -72,6 +74,67 @@
                         break;
                 }
             }
+        }
+        private static void EditTaskInteractive(TodoItem item, Storage storage)
+        {
+            Console.WriteLine("1 - Title, 2 - Description, 3 - Deadline, 4 - Status , 5 - All of the above");
+            Console.WriteLine("What to you want to edit? (1-5)");
+            string? inputEditTask = Console.ReadLine();
+            switch (inputEditTask)
+            {
+                case "1":
+                    EditTitle(item, storage);
+                    break;
+                case "2":
+                    EditDescription(item, storage);
+                    break;
+                case "3":
+                    EditDueTime(item, storage);
+                    break;
+                case "4":
+                    EditStatus(item, storage);
+                    break;
+                case "5":
+                    EditTitle(item, storage);
+                    EditDescription(item, storage);
+                    EditDueTime(item, storage);
+                    EditStatus(item, storage);
+                    break;
+            }
+        }
+
+        private static void EditTitle(TodoItem item, Storage storage)
+        {
+            Console.WriteLine($"Title: {item.Title}. Input new title: ");
+            string? title = Console.ReadLine();
+            if(!string.IsNullOrWhiteSpace(title))
+            storage.UpdateTitle(item, title);
+        }
+
+        private static void EditDescription(TodoItem item, Storage storage)
+        {
+            Console.WriteLine($"Description: {item.Description}. Input new description: ");
+            string description = Console.ReadLine();
+            if (!string.IsNullOrWhiteSpace(description))
+                storage.UpdateDescription(item, description);
+        }
+
+        private static void EditDueTime(TodoItem item, Storage storage) {
+            Console.WriteLine($"Deadline: {item.DueDate}. Input new deadline (yyyy-mm-dd): ");
+            string inputDate = Console.ReadLine();
+            if (DateTime.TryParse(inputDate, out DateTime date))
+            {
+                storage.UpdateDueDate(item, date);
+                Console.WriteLine($"Deadline date has been successfully changed. {date}");
+            }
+            else
+                Console.WriteLine("Invalid date format");
+        }
+
+        private static void EditStatus(TodoItem item, Storage storage)
+        {
+            storage.ToggleStatus(item);
+            Console.WriteLine($"Task {item.Title} status changed");
         }
     }
 }
