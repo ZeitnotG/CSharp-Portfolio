@@ -22,18 +22,15 @@ namespace To_DoList
                 Console.WriteLine("5. Save Todo List");
                 Console.WriteLine("6. Load Todo List");
                 Console.WriteLine("0. Exit");
-                Console.Write("Choose option: ");
 
-                string? input = Console.ReadLine();
+                string? input = Prompt("Choose option: ");
 
                 switch (input)
                 {
                     case "1":
-                        Console.Write("Enter title ");
-                        string title = Console.ReadLine();
-                        Console.Write("Enter description ");
-                        string description = Console.ReadLine();
-                        TodoItem newTask = new TodoItem(nextId, title, description);
+                        string? title = Prompt("Enter title ");
+                        string? description = Prompt("Enter description ");
+                        TodoItem? newTask = new TodoItem(nextId, title, description);
                         storage.AddTask(newTask);
                         nextId++;
                         break;
@@ -43,8 +40,7 @@ namespace To_DoList
                         break;
 
                     case "3":
-                        Console.Write("Enter task Id: ");
-                        string idToComplete = Console.ReadLine();
+                        string? idToComplete = Prompt("Enter task Id: ");
                         var taskToComplete = storage.FindById(idToComplete);
                         if (taskToComplete != null)
                             EditTaskInteractive(taskToComplete, storage);
@@ -53,8 +49,7 @@ namespace To_DoList
                         break;
 
                     case "4":
-                        Console.Write("Enter task Id: ");
-                        string idToRemove = Console.ReadLine();
+                        string? idToRemove = Prompt("Enter task Id: ");
                         var taskToRemove = storage.FindById(idToRemove);
                         if (taskToRemove != null)
                             storage.RemoveTask(taskToRemove);
