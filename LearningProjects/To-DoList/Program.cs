@@ -37,6 +37,7 @@ namespace To_DoList
 
                     case "2":
                         storage.ShowAllTasks();
+                        FilterTasks(storage);
                         break;
 
                     case "3":
@@ -91,8 +92,8 @@ namespace To_DoList
                     EditStatus(item, storage);
                     break;
                 case "5":
-                   Action<TodoItem, Storage>[] edits = {EditTitle, EditDescription, EditDueTime, EditStatus};
-                    foreach(var edit in edits)
+                    Action<TodoItem, Storage>[] edits = { EditTitle, EditDescription, EditDueTime, EditStatus };
+                    foreach (var edit in edits)
                         edit(item, storage);
                     break;
                 default:
@@ -104,8 +105,8 @@ namespace To_DoList
         private static void EditTitle(TodoItem item, Storage storage)
         {
             string? title = Prompt($"Title: {item.Title}. Input new title: ");
-            if(!string.IsNullOrWhiteSpace(title))
-            storage.UpdateTitle(item, title);
+            if (!string.IsNullOrWhiteSpace(title))
+                storage.UpdateTitle(item, title);
         }
 
         private static void EditDescription(TodoItem item, Storage storage)
@@ -115,7 +116,8 @@ namespace To_DoList
                 storage.UpdateDescription(item, description);
         }
 
-        private static void EditDueTime(TodoItem item, Storage storage) {
+        private static void EditDueTime(TodoItem item, Storage storage)
+        {
             string? inputDate = Prompt($"Deadline: {item.DueDate}. Input new deadline (yyyy-mm-dd): ");
             if (DateTime.TryParse(inputDate, out DateTime date))
             {
@@ -136,6 +138,66 @@ namespace To_DoList
         {
             Console.WriteLine(message);
             return Console.ReadLine();
+        }
+
+        private static void FilterTasks(Storage storage)
+        {
+            Console.WriteLine("1. Show active tasks");
+            Console.WriteLine("2. Show completed tasks");
+            Console.WriteLine("3. Show tasks with a deadline for today");
+            Console.WriteLine("4. Show overdue tasks");
+            string? input = Prompt("Select filter:");
+            switch (input)
+            {
+                case "1":
+                    ShowActiveTasks(storage);
+                    break;
+                case "2":
+                    ShowCompletedTasks(storage);
+                    break;
+                case "3":
+                    ShowTodayTasks(storage);
+                    break;
+                case "4":
+                    ShowOverdueTasks(storage);
+                    break;
+                default:
+                    Console.WriteLine("Invalid operation");
+                    break;
+            }
+        }
+
+        private static void ShowActiveTasks(Storage storage)
+        {
+            var activeTasks = storage.tasks.Where(task => !task.IsCompleted);
+
+            foreach (var task in activeTasks)
+            {
+                task.ShowInfo();
+            }
+        }
+
+        private static void ShowCompletedTasks(Storage storage)
+        {
+            var completedTasks = storage.tasks.Where(task => task.IsCompleted);
+
+            foreach (var task in completedTasks)
+            {
+                task.ShowInfo();
+            }
+        }
+
+        private static void ShowTodayTasks(Storage storage)
+        {
+            var start = DateTime.Today;
+            var end = start.AddDays(1);
+
+            var todayTasks = storage.tasks.Where(task => task.DueDate >= start && task.DueDate < end);
+        }
+
+        private static void ShowOverdueTasks(Storage storage)
+        {
+            var overdueTasks = storage.tasks.Where(task => task.DueDate.Date < DateTime.Today);
         }
     }
 }

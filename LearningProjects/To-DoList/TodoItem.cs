@@ -21,5 +21,10 @@ namespace To_DoList
             DateTime duedate = DateTime.Now.AddDays(7);
             IsCompleted = false;
         }
+
+        public void ShowInfo()
+        {
+            Console.WriteLine($"Id: {Id}, Title: {Title} , Description: {Description}, Date: {DueDate}, Status: {IsCompleted}");
+        }
     }
 }

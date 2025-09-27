@@ -22,7 +22,7 @@ namespace To_DoList
         {
             foreach (TodoItem item in tasks)
             {
-                Console.WriteLine($"Id: {item.Id}, Title: {item.Title} , Description: {item.Description}, Date: {item.DueDate}, Status: {item.IsCompleted}");
+                item.ShowInfo();
             }
         }
 
