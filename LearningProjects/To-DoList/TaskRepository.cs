@@ -25,5 +25,6 @@ namespace To_DoList
             string json = File.ReadAllText(FilePath);
             return JsonSerializer.Deserialize<List<TodoItem>>(json) ?? new List<TodoItem>();
         }
+
     }
 }

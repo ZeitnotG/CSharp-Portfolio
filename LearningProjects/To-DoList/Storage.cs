@@ -41,5 +41,6 @@ namespace To_DoList
 
         public void Save() => repo.Save(tasks);
         public void Load() => tasks = repo.Load();
+        public IEnumerable<TodoItem> GetTasks(Func<TodoItem, bool> filter) => tasks.Where(filter);
     }
 }

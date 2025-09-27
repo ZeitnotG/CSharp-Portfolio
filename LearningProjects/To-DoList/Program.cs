@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Threading.Tasks;
 using To_DoList;
 
 namespace To_DoList
@@ -147,57 +148,35 @@ namespace To_DoList
             Console.WriteLine("3. Show tasks with a deadline for today");
             Console.WriteLine("4. Show overdue tasks");
             string? input = Prompt("Select filter:");
+            IEnumerable <TodoItem> result = Enumerable.Empty<TodoItem>();
             switch (input)
             {
                 case "1":
-                    ShowActiveTasks(storage);
+                    result = storage.GetTasks(task => !task.IsCompleted);
                     break;
                 case "2":
-                    ShowCompletedTasks(storage);
+                    result = storage.GetTasks(task => task.IsCompleted);
                     break;
                 case "3":
-                    ShowTodayTasks(storage);
+                    var start = DateTime.Today;
+                    var end = start.AddDays(1);
+                    result = storage.GetTasks(task => task.DueDate >= start && task.DueDate < end);
                     break;
                 case "4":
-                    ShowOverdueTasks(storage);
+                    result = storage.GetTasks(task => task.DueDate.Date < DateTime.Today);
                     break;
                 default:
                     Console.WriteLine("Invalid operation");
-                    break;
+                    return;
             }
+            PrintTasks(result);
         }
-
-        private static void ShowActiveTasks(Storage storage)
+        private static void PrintTasks(IEnumerable<TodoItem> tasks)
         {
-            var activeTasks = storage.tasks.Where(task => !task.IsCompleted);
-
-            foreach (var task in activeTasks)
+            foreach (var task in tasks)
             {
                 task.ShowInfo();
             }
-        }
-
-        private static void ShowCompletedTasks(Storage storage)
-        {
-            var completedTasks = storage.tasks.Where(task => task.IsCompleted);
-
-            foreach (var task in completedTasks)
-            {
-                task.ShowInfo();
-            }
-        }
-
-        private static void ShowTodayTasks(Storage storage)
-        {
-            var start = DateTime.Today;
-            var end = start.AddDays(1);
-
-            var todayTasks = storage.tasks.Where(task => task.DueDate >= start && task.DueDate < end);
-        }
-
-        private static void ShowOverdueTasks(Storage storage)
-        {
-            var overdueTasks = storage.tasks.Where(task => task.DueDate.Date < DateTime.Today);
         }
     }
 }
